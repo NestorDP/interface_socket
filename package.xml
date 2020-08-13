@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>interface_socket</name>
+  <version>0.0.0</version>
+  <description>Pacote de interface entre rede interna ROS e um rede externa</description>
+
+  <maintainer email="nestor-dp@hotmail.com">Nestor D. Pereira Neto</maintainer>
+
+  <license>GNU</license>
+
+  <author email="nestor-dp@hotmail.com">Nestor D. Pereira Neto</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+
+  <export>
+  </export>
+
+</package>
