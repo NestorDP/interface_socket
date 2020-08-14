@@ -7,7 +7,14 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_python_setup()
 
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES my_pkg
+#  CATKIN_DEPENDS rospy
+#  DEPENDS system_lib
+)
 
-catkin_install_python(PROGRAMS scripts/myscript
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
-
+include_directories(
+# include
+  ${catkin_INCLUDE_DIRS}
+)

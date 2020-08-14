@@ -3,7 +3,7 @@
 import rospy
 from sensor_msgs.msg import Image
 
-import clientteste
+from interface_socket.ethernet_interface import EthernetInterface
 
 
 class ImageManipulator:
@@ -17,10 +17,9 @@ class ImageManipulator:
 
 
 if __name__ == '__main__':
-    rospy.init_node('interface_socket')
+    rospy.init_node('interface')
     img = ImageManipulator()
-
-    a = SocketInterface()
+    a = EthernetInterface('Hello')
 
     # while not rospy.is_shutdown():
     rospy.spin()
