@@ -7,11 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_python_setup()
 
-catkin_package(CATKIN_DEPENDS 
-  rospy 
-  std_msgs
-)
 
-install(DIRECTORY launch config
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
-  
+catkin_install_python(PROGRAMS scripts/myscript
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
