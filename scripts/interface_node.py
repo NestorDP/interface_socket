@@ -18,17 +18,18 @@ class ImageManipulator:
 
 
 def callback_string_test(data):
-    skt.send(data)
+    soc.send(data)
 
 
 if __name__ == '__main__':
     rospy.init_node('interface')
     img = ImageManipulator()
-    skt = EthernetInterface('127.0.0.1', 5000)
+    soc = EthernetInterface('127.0.0.1', 5000)
 
     rospy.Subscriber("string_input", String, callback_string_test)
-    pub = rospy.Publisher('string_output', String, queue_size=10)
+    p = rospy.Publisher('string_output', String, queue_size=10)
 
-    # while not rospy.is_shutdown():
+    while not rospy.is_shutdown():
+        p.publish(soc.receive())
 
-    rospy.spin()
+    # rospy.spin()
