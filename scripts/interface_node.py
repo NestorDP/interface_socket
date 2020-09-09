@@ -24,7 +24,7 @@ def callback_string_test(data):
 if __name__ == '__main__':
     rospy.init_node('interface')
     img = ImageManipulator()
-    soc = EthernetInterface('127.0.0.1', 5000)
+    soc = EthernetInterface(rospy.get_param("~ip"), rospy.get_param("~port"))
 
     rospy.Subscriber("string_input", String, callback_string_test)
     p = rospy.Publisher('string_output', String, queue_size=10)

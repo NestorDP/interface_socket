@@ -1,2 +1,5 @@
+ip: "192.168.0.150"
+port: 5000
+
 topic_in: image_raw
 topic_out: image_filtered
