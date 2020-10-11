@@ -16,7 +16,7 @@ class EthernetInterface:
         self.socket_handle.close()
 
     def send(self, message):
-        self.socket_handle.send(message.data)
+        self.socket_handle.send(message)
 
     def receive(self):
         return self.socket_handle.recv(1024)
