@@ -11,9 +11,8 @@
   <author email="nestor-dp@hotmail.com">Nestor D. Pereira Neto</author>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>rospy</build_depend>
-  <build_export_depend>rospy</build_export_depend>
-  <exec_depend>rospy</exec_depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
 
   <export>
   </export>

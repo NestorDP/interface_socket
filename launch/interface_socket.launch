@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-    <node name="ethernet_interface" pkg="interface_socket" type="interface_node.py" output="screen">
+    <node name="ethernet_interface" pkg="interface_socket" type="interface_socket_node" output="screen">
         <rosparam command="load" file="$(find interface_socket)/config/interface_socket_config.yaml" />
     </node>
 
