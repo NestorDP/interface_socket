@@ -32,3 +32,7 @@ sock::EthernetInterface::EthernetInterface (std::string server_ip, int port) {
 sock::EthernetInterface::~EthernetInterface (){
     close(sockfd);
 }
+
+void sock::EthernetInterface::net_send(std::vector<uint8_t> msg){
+    send(sockfd, msg.data(), msg.size(), 0);
+}

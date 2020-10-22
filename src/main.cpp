@@ -15,21 +15,17 @@ int main(int argc, char **argv) {
     std::string server_ip;
     int port;
 
+    std::vector<uint8_t> i {10, 20, 30, 40, 50};
+    
     ros::param::get("~/server_ip", server_ip);
     ros::param::get("~/port", port);
 
     sock::EthernetInterface soc(server_ip, port);
+    soc.net_send(i);
 
-
-    // communication::SerialCommunication serial;
-    // serial.send_msg(mensagem.c_str());
-    // serial.send_msg(mensagem2);
-    // serial.send_msg("1234567890123456789");
     // while (ros::ok()) {
-    //   mensagem = serial.receive_msg();
-    //   ROS_INFO("Recebido %s", mensagem.data());
-    //   serial.send_msg(mensagem.c_str());
-    //   serial.send_msg("1234567890123456789");
+
     // }
+    
     ros::spin();
 }

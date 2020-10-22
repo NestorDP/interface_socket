@@ -15,6 +15,7 @@
 #include <ros/ros.h>
 
 #include <string>
+#include <vector>
 
 #define BUFFER_LEN 1024
 
@@ -24,10 +25,12 @@ class EthernetInterface{
   public:
     EthernetInterface(std::string server_ip, int port);
     ~EthernetInterface();
+    void net_send(std::vector<uint8_t> msg);
+
 
   private:
-    char buffer_in[BUFFER_LEN];
-    char buffer_out[BUFFER_LEN];
+    uint8_t buffer_in[BUFFER_LEN];
+    uint8_t buffer_out[BUFFER_LEN];
     int port;
     int sockfd;
       
