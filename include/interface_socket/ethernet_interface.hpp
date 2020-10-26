@@ -25,7 +25,8 @@ class EthernetInterface{
   public:
     EthernetInterface(std::string server_ip, int port);
     ~EthernetInterface();
-    void net_send(std::vector<uint8_t> msg);
+    int net_send(uint8_t *msg, unsigned int len);
+    int net_recv(uint8_t *msg, unsigned int len);
 
 
   private:

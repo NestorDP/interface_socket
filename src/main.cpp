@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
     int port;
     std::string server_ip;
     std::vector<uint8_t> i {10, 20, 30, 40, 50};
+    std::vector<uint8_t> j (BUFFER_LEN);
     ros::init(argc, argv, "node");
     ros::NodeHandle nh;
 
@@ -30,7 +31,20 @@ int main(int argc, char **argv) {
     ros::param::get("~/port", port);
 
     sock::EthernetInterface soc(server_ip, port);
-    soc.net_send(i);
+
+    soc.net_recv(j.data(), BUFFER_LEN);
+    printf("Mensagem recebida ...\n");
+    printf("%s\n", j.data());
+
+    soc.net_send(i.data(), BUFFER_LEN);
+
+    soc.net_recv(j.data(), BUFFER_LEN);
+    printf("Mensagem recebida ...\n");
+    // printf("%s\n", j.data());
+
+    for(int x = 0; x < 5; x++ ){
+        printf("%d \n", j[x]);
+    }
     
     // while (ros::ok()) {
     //     fprintf(stdout, "==================\n");

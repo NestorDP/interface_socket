@@ -33,6 +33,10 @@ sock::EthernetInterface::~EthernetInterface (){
     close(sockfd);
 }
 
-void sock::EthernetInterface::net_send(std::vector<uint8_t> msg){
-    send(sockfd, msg.data(), msg.size(), 0);
+int sock::EthernetInterface::net_send(uint8_t *msg, unsigned int len){
+    return send(sockfd, msg, len, 0);
+}
+
+int sock::EthernetInterface::net_recv(uint8_t *msg, unsigned int len){
+    return recv(sockfd, msg, len, 0);
 }
