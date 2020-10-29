@@ -1,3 +1,8 @@
+/**
+ * @ Copyright 2020
+ */
+
+
 #ifndef ETHERNET_INTERFACE_HPP
 #define ETHERNET_INTERFACE_HPP
 
@@ -16,29 +21,31 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
 
 #define BUFFER_LEN 1024
+
 
 namespace sock {
 
 class EthernetInterface{
   public:
-    EthernetInterface(std::string server_ip, int port);
+    EthernetInterface();
     ~EthernetInterface();
+    void create_socket(void);
+    void connect_server(std::string ip, int port);
     int net_send(uint8_t *msg, unsigned int len);
     int net_recv(uint8_t *msg, unsigned int len);
 
-
   private:
+    struct sockaddr_in server;
     uint8_t buffer_in[BUFFER_LEN];
     uint8_t buffer_out[BUFFER_LEN];
     int port;
-    int sockfd;
-      
+    int sockfd;      
 };
 }
-
-
-
 
 #endif // ETHERNET_INTERFACE_HPP
