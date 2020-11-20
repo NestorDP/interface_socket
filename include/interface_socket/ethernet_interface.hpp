@@ -17,7 +17,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include <ros/ros.h>
+// #include <ros/ros.h>
 
 #include <string>
 #include <vector>
@@ -36,8 +36,10 @@ class EthernetInterface{
     ~EthernetInterface();
     void create_socket(void);
     void connect_server(std::string ip, int port);
-    int net_send(uint8_t *msg, unsigned int len);
-    int net_recv(uint8_t *msg, unsigned int len);
+    int net_send(uint8_t *msg, unsigned int len_buffer);
+    int net_send(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
+    int net_recv(uint8_t *msg, unsigned int len_buffer);
+    int net_recv(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
 
   private:
     struct sockaddr_in server;
