@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     std::vector<uint8_t> msg_in(BUFFER_LEN);
     ros::init(argc, argv, "node");
     ros::NodeHandle nh;
-    ros::Rate r(30);
+    ros::Rate r(10);
 
     ros::Publisher pub = nh.advertise<sensor_msgs::Image>("image_filtered", 100);
     ros::Subscriber sub = nh.subscribe("image_raw", 100, image_rawCallback);

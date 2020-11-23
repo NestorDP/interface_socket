@@ -25,7 +25,7 @@
 #include <cstring>
 #include <cstdlib>
 
-#define BUFFER_LEN 1024
+#define BUFFER_LEN 512
 
 
 namespace sock {
