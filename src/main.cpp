@@ -25,25 +25,39 @@ void image_rawCallback (const sensor_msgs::Image::ConstPtr & image){
 }
 
 int main(int argc, char **argv) {
-    int port;
     int n_bytes;
-    std::string server_ip;
     std::vector<uint8_t> msg_in(BUFFER_LEN);
     ros::init(argc, argv, "node");
     ros::NodeHandle nh;
-    ros::Rate r(10);
+
+    int port;
+    int height;
+    int width;
+    int step;
+    int fps;
+    std::string server_ip;
+    std::string encoding;
+    std::string frame_id;
+
+    ros::param::get("~/port", port);
+    ros::param::get("~/height", height);
+    ros::param::get("~/width", width);
+    ros::param::get("~/step", step);
+    ros::param::get("~/server_ip", server_ip);
+    ros::param::get("~/encoding", encoding);
+    ros::param::get("~/frame_id", frame_id);
+    ros::param::get("~/fps", fps);
+
+    ros::Rate r(fps);
 
     ros::Publisher pub = nh.advertise<sensor_msgs::Image>("image_filtered", 100);
     ros::Subscriber sub = nh.subscribe("image_raw", 100, image_rawCallback);
-    
-    ros::param::get("~/server_ip", server_ip);
-    ros::param::get("~/port", port);
 
-    imag->encoding = "rgb8";
-    imag->height = 720;
-    imag->width = 1280;
-    imag->step = 3840;
-    imag->header.frame_id = "camera_link";
+    imag->encoding = encoding;
+    imag->height = height;
+    imag->width = width;
+    imag->step = step;
+    imag->header.frame_id = frame_id;
 
     sock::EthernetInterface soc;
     soc.create_socket();
@@ -60,7 +74,6 @@ int main(int argc, char **argv) {
             imag->data = dados_in;
             imag->header.stamp = ros::Time::now();
             pub.publish(imag);
-            // printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n");
         }
         ros::spinOnce();
         r.sleep();    

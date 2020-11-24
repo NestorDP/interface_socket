@@ -2,7 +2,6 @@
  * @ Copyright 2020
  */
 
-
 #ifndef ETHERNET_INTERFACE_HPP
 #define ETHERNET_INTERFACE_HPP
 

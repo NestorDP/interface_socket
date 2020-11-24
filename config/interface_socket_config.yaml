@@ -1,5 +1,10 @@
 server_ip: "192.168.0.150"
 port: 4242
 
-topic_in: image_raw
-topic_out: image_filtered
+fps: 15
+
+encoding: "rgb8"
+height: 720
+width: 1280
+step: 3840
+header.frame_id: "camera_link"
