@@ -60,8 +60,7 @@ int main(int argc, char **argv) {
     imag->header.frame_id = frame_id;
 
     sock::EthernetInterface soc;
-    soc.create_socket();
-    soc.connect_server(server_ip, port);
+    soc.create_socket(server_ip, port, TCP);
 
     soc.net_recv(msg_in.data(), BUFFER_LEN);
     printf("Message received: ");

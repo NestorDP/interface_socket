@@ -24,7 +24,9 @@
 #include <cstring>
 #include <cstdlib>
 
-#define BUFFER_LEN 512
+#define BUFFER_LEN 1024
+#define TCP 1
+#define UDP 0
 
 
 namespace sock {
@@ -33,8 +35,7 @@ class EthernetInterface{
   public:
     EthernetInterface();
     ~EthernetInterface();
-    void create_socket(void);
-    void connect_server(std::string ip, int port);
+    void create_socket(std::string ip_server, int port, bool protocol);
     int net_send(uint8_t *msg, unsigned int len_buffer);
     int net_send(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
     int net_recv(uint8_t *msg, unsigned int len_buffer);

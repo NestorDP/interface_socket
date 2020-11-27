@@ -14,28 +14,28 @@ sock::EthernetInterface::~EthernetInterface (){
     close(sockfd);
 }
 
-void sock::EthernetInterface::create_socket(void){
+void sock::EthernetInterface::create_socket(std::string ip_server, int port, bool protocol){
     if ((sockfd = socket(AF_INET,  SOCK_STREAM, 0)) == -1) {
         perror("\e[1;31mError on client socket creation:");
         printf("\e[0m");
         exit (EXIT_FAILURE);
     }
     printf("Client socket created with fd: %d\n", sockfd);
-}
 
-void sock::EthernetInterface::connect_server(std::string ip, int port){
     server.sin_family = AF_INET;
     server.sin_port = htons(port);
-    server.sin_addr.s_addr = inet_addr(ip.c_str());
+    server.sin_addr.s_addr = inet_addr(ip_server.c_str());
     memset(server.sin_zero, 0x0, 8);
 
-    if (connect(sockfd, (struct sockaddr*) &server, sizeof(server)) == -1) {
-        perror("\e[1;31mCan't connect to server");
-        printf("\e[0m");
-        exit (EXIT_FAILURE);
+    if(protocol){
+        if (connect(sockfd, (struct sockaddr*) &server, sizeof(server)) == -1) {
+            perror("\e[1;31mCan't connect to server");
+            printf("\e[0m");
+            exit (EXIT_FAILURE);
+        }
+        printf("Connection established with the server\n");
     }
 
-    printf("Connection established with the server\n");
     return;
 }
 
