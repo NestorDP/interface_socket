@@ -36,10 +36,10 @@ class EthernetInterface{
     EthernetInterface();
     ~EthernetInterface();
     void create_socket(std::string ip_server, int port, bool protocol);
-    int net_send(uint8_t *msg, unsigned int len_buffer);
     int net_send(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
-    int net_recv(uint8_t *msg, unsigned int len_buffer);
     int net_recv(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
+    int net_sendto(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
+    int net_recvfrom(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
 
   private:
     struct sockaddr_in server;
