@@ -61,11 +61,15 @@ int main(int argc, char **argv) {
     imag->header.frame_id = frame_id;
 
     sock::EthernetInterface soc;
-    soc.create_socket(server_ip, port, TCP);
+    soc.create_socket(server_ip, port, UDP);
 
-    soc.net_recv(msg_in.data(), BUFFER_LEN, msg_in.size());
-    printf("Message received: ");
-    printf("%s", msg_in.data());
+    std::vector<uint8_t> mensagem_teste = {'T','E','S','T','E', '\0'}; 
+
+    soc.net_send(mensagem_teste.data(), BUFFER_LEN, mensagem_teste.size());
+
+    // soc.net_recv(msg_in.data(), BUFFER_LEN, msg_in.size());
+    // printf("Message received: ");
+    // printf("%s", msg_in.data());
 
     while (ros::ok()) {
         if(step > 0){

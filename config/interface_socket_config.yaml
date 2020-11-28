@@ -1,5 +1,5 @@
 server_ip: "127.0.0.1"
-port: 4242
+port: 1500
 
 fps: 15
 

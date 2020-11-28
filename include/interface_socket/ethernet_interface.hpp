@@ -38,15 +38,12 @@ class EthernetInterface{
     void create_socket(std::string ip_server, int port, bool protocol);
     int net_send(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
     int net_recv(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
-    int net_sendto(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
-    int net_recvfrom(uint8_t *msg, unsigned int len_buffer, int unsigned len_msg);
 
   private:
     struct sockaddr_in server;
-    uint8_t buffer_in[BUFFER_LEN];
-    uint8_t buffer_out[BUFFER_LEN];
     int port;
-    int sockfd;      
+    int sockfd; 
+    bool prtlc;     
 };
 }
 
