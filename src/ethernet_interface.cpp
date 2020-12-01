@@ -72,7 +72,7 @@ int sock::EthernetInterface::net_recv(uint8_t *msg, unsigned int len_buffer, int
 
     if (this->prtlc) {
         for(int i = 0; i < len_msg; i = i + len_buffer) {
-            num = num + recv(this->sockfd, msg + i, len_buffer, 0);
+            num = num + recv(this->sockfd, msg + i, len_buffer, MSG_WAITALL);
         }
     }
     else {

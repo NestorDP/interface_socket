@@ -13,13 +13,12 @@
 
 #define MSG_LEN 2764800
 
-sensor_msgs::Image::Ptr imag(new sensor_msgs::Image());
 std::vector<uint8_t> dados_in(MSG_LEN);
 std::vector<uint8_t> dados_out(MSG_LEN);
 uint32_t step = 0;
 
 void image_rawCallback (const sensor_msgs::Image::ConstPtr & image){
-    ROS_INFO("I heard: [%d]", image->step);
+    // ROS_INFO("I heard: [%d]", sizeof(image->data));
     dados_out = image->data;
     step = image->step;
 }
@@ -30,6 +29,7 @@ int main(int argc, char **argv) {
     std::vector<uint8_t> msg_in(BUFFER_LEN);
     ros::init(argc, argv, "node");
     ros::NodeHandle nh;
+    sensor_msgs::Image::Ptr imag(new sensor_msgs::Image());
 
     int port;
     int height;
@@ -61,26 +61,30 @@ int main(int argc, char **argv) {
     imag->header.frame_id = frame_id;
 
     sock::EthernetInterface soc;
-    soc.create_socket(server_ip, port, UDP);
+    soc.create_socket(server_ip, port, TCP);
 
-    std::vector<uint8_t> mensagem_teste = {'T','E','S','T','E', '\0'}; 
+    // std::vector<uint8_t> mensagem_teste = {'T','E','S','T','E', '\0'}; 
+    // soc.net_send(mensagem_teste.data(), BUFFER_LEN, mensagem_teste.size());
 
-    soc.net_send(mensagem_teste.data(), BUFFER_LEN, mensagem_teste.size());
+    soc.net_recv(msg_in.data(), BUFFER_LEN, msg_in.size());
+    printf("Message received: ");
+    printf("%s", msg_in.data());
 
-    // soc.net_recv(msg_in.data(), BUFFER_LEN, msg_in.size());
-    // printf("Message received: ");
-    // printf("%s", msg_in.data());
-
+    unsigned int n = 0;
     while (ros::ok()) {
         if(step > 0){
-            // soc.net_send(dados_out.data(), BUFFER_LEN, MSG_LEN);
-            // n_bytes = soc.net_recv(dados_in.data(), BUFFER_LEN, MSG_LEN);
-            // imag->data = dados_in;
-            // imag->header.stamp = ros::Time::now();
-            // pub.publish(imag);
+            soc.net_send(dados_out.data(), BUFFER_LEN, MSG_LEN);
+
+            n_bytes = soc.net_recv(dados_in.data(), BUFFER_LEN, MSG_LEN);
+            imag->data = dados_in;
+            imag->header.stamp = ros::Time::now();
+            pub.publish(imag);
+
+            if (n_bytes != MSG_LEN) {
+                printf("%d - bytes recebidos: %d\n",n++, n_bytes);
+            }
         }
         ros::spinOnce();
         r.sleep();    
     }
-    // ros::spin();
 }

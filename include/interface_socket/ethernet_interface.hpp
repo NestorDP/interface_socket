@@ -24,7 +24,7 @@
 #include <cstring>
 #include <cstdlib>
 
-#define BUFFER_LEN 1024
+#define BUFFER_LEN 512
 #define TCP 1
 #define UDP 0
 
