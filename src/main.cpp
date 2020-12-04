@@ -24,7 +24,6 @@ void image_rawCallback (const sensor_msgs::Image::ConstPtr & image){
 }
 
 int main(int argc, char **argv) {
-    int n_bytes;
     int msg_len;
     std::vector<uint8_t> msg_in(BUFFER_LEN);
     ros::init(argc, argv, "node");
@@ -74,15 +73,10 @@ int main(int argc, char **argv) {
     while (ros::ok()) {
         if(step > 0){
             soc.net_send(dados_out.data(), BUFFER_LEN, MSG_LEN);
-
-            n_bytes = soc.net_recv(dados_in.data(), BUFFER_LEN, MSG_LEN);
+            soc.net_recv(dados_in.data(), BUFFER_LEN, MSG_LEN);
             imag->data = dados_in;
             imag->header.stamp = ros::Time::now();
             pub.publish(imag);
-
-            if (n_bytes != MSG_LEN) {
-                printf("%d - bytes recebidos: %d\n",n++, n_bytes);
-            }
         }
         ros::spinOnce();
         r.sleep();    
