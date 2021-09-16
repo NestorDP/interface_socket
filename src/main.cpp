@@ -9,7 +9,7 @@
 
 #include <string>
 
-#include "interface_socket/ethernet_interface.hpp"
+#include <interfacesocket.hpp>
 
 #define MSG_LEN 2764800
 
