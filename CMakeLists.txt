@@ -7,9 +7,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
 
+find_library(INTERFACE_LIB NAMES interfacesocket)
+
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
+  # INCLUDE_DIRS include
+  # LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS roscpp sensor_msgs
 )
 
@@ -20,6 +22,6 @@ include_directories(
 )
 
 
-add_executable(${PROJECT_NAME}_node src/main.cpp src/ethernet_interface.cpp)
+add_executable(${PROJECT_NAME}_node src/main.cpp)
 add_dependencies(${PROJECT_NAME}_node ${catkin_EXPORTED_TARGETS} )
-target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES} ${INTERFACE_LIB})
